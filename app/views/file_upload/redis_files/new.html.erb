@@ -1,0 +1,9 @@
+<h1>New File</h1>
+
+<%= form_for(@redis_file, multipart: true) do |form| %>
+
+  <%= form.file_field :file_io %>
+
+  <%= form.submit class: "btn btn-primary" %>
+
+<% end %>
