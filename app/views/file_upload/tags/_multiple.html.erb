@@ -5,9 +5,10 @@
   # options
   preview = options.delete(:preview) || false
   hide_files = options.delete(:hide_files) || false
+
   file_attrs = {
     data: {
-      :"attr-name" => "#{model_name}[#{attribute_name}_attributes][][key]",
+      :"attr-name" => "#{model_name}[#{attribute_name}_attributes][REPLACE_ID][key]",
       container: ".#{attribute_name}",
       :"file-upload" => true,
       :"file-path" => file_upload.bulk_redis_files_path

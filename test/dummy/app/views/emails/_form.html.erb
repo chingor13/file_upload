@@ -1,0 +1,22 @@
+<%= form_for(email) do |form| %>
+  <% if email.errors.present? %>
+    <ul class="error">
+      <% email.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= form.label :subject %>
+  <%= form.text_field :subject %>
+
+  <%= form.label :message %>
+  <%= form.text_field :message %>
+
+  <%= form.label :attachments %>
+  <%= file_upload_field(:email, :attachments, email.attachments, multiple: true) do %>
+    <%= link_to "add attachment", "#", class: "add" %>
+  <% end %>
+
+  <%= form.submit %>
+<% end %>

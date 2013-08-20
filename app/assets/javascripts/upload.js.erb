@@ -48,7 +48,7 @@ $(function() {
           var item = data.files[i].item;
           item.find(".progress").replaceWith(
             $('<input type="checkbox" checked="checked"/>')
-              .attr('name', attrName)
+              .attr('name', attrName.replace("REPLACE_ID", Math.floor(Math.random() * 1000000)))
               .val(file.id)
           );
         });
