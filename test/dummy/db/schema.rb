@@ -14,9 +14,13 @@
 ActiveRecord::Schema.define(version: 20130820025256) do
 
   create_table "db_files", force: true do |t|
-    t.string "owner_type"
-    t.string "owner_id"
-    t.string "key"
+    t.string  "owner_type"
+    t.string  "owner_id"
+    t.string  "name"
+    t.integer "size"
+    t.string  "content_type"
+    t.string  "data",         limit: 10485760
+    t.string  "binary",       limit: 10485760
   end
 
   create_table "emails", force: true do |t|

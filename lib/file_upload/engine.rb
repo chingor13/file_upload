@@ -9,7 +9,7 @@ module FileUpload
     end
 
     initializer "file_upload.assets.precompile" do |app|
-      app.config.assets.precompile += %w(upload.js)
+      app.config.assets.precompile += %w(upload.js upload.css)
     end
 
   end

@@ -12,7 +12,10 @@ class AddUsers < ActiveRecord::Migration
     create_table :db_files do |t|
       t.string :owner_type
       t.string :owner_id
-      t.string :key
+      t.string :name
+      t.integer :size
+      t.string :content_type
+      t.string :data, :binary, limit: 10.megabyte
     end
   end
 end

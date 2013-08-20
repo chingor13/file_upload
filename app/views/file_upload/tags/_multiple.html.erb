@@ -3,36 +3,33 @@
   # attribute_name
   # value
   # options
-  multiple = options.delete(:multiple)
   preview = options.delete(:preview) || false
   hide_files = options.delete(:hide_files) || false
   file_attrs = {
-    multiple: options.delete(:multiple), 
     data: {
       :"attr-name" => "#{model_name}[#{attribute_name}_attributes][][key]",
       container: ".#{attribute_name}",
       :"file-upload" => true,
-      :"file-path" => file_url
-    }
+      :"file-path" => file_upload.bulk_redis_files_path
+    },
+    :multiple => true
   }.tap do |a|
-    a[:multiple] = true if multiple
     a[:"data-autosubmit"] = true if options.delete(:autosubmit)
   end
 -%>
 <div class="file <%= attribute_name %>">
   <ul class="unstyled<%= ' hide' if hide_files %>">
-    <% Array(value).each do |s3_file| -%>
+    <% Array(value).each do |file| -%>
       <li><label>
-        <% if s3_file.persisted? && multiple %>
+        <% if file.persisted? %>
           <%= hidden_field_tag("#{model_name}[existing_#{attribute_name}_attributes][#{s3_file.id}][_destroy]", 1) %>
           <%= check_box_tag("#{model_name}[existing_#{attribute_name}_attributes][#{s3_file.id}][_destroy]", 0, checked: true) %>
-        <% elsif s3_file.key %>
-          <%= hidden_field_tag("#{model_name}[#{attribute_name}_attributes][][id]", "") %>
-          <%= check_box_tag("#{model_name}[#{attribute_name}_attributes][][key]", s3_file.key, checked: true) %>
-        <% elsif s3_file.s3_file %>
-          <%= check_box_tag("#{model_name}[#{attribute_name}_attributes][][s3_file_id]", s3_file.s3_file.id, checked: true) %>
+        <% elsif file.key %>
+          <% guid = UUID.generate %>
+          <%= hidden_field_tag("#{model_name}[#{attribute_name}_attributes][#{guid}][id]", "") %>
+          <%= check_box_tag("#{model_name}[#{attribute_name}_attributes][#{guid}][key]", file.key, checked: true) %>
         <% end %>
-        <%= s3_file.name %> (<%= number_with_precision(s3_file.size / 1024.0, precision: 2) %>)kB
+        <%= file.name %> (<%= number_with_precision(file.size / 1024.0, precision: 2) %>)kB
       </label></li>
     <% end -%>
   </ul>

@@ -1,9 +1,18 @@
-<%= form_for(@user) do |form| %>
+<%= form_for(user) do |form| %>
+  <% if user.errors.present? %>
+    <ul class="error">
+      <% user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <%= form.label :name %>
   <%= form.text_field :name %>
 
-  <%= file_upload_field(:user, :avatar, nil, multiple: true) do %>
-    <%= link_to "Foo", "#", class: "add" %>
+  <%= form.label :avatar %>
+  <%= file_upload_field(:user, :avatar, user.avatar, preview: true) do %>
+    <%= link_to "add avatar", "#", class: "add" %>
   <% end %>
 
   <%= form.submit %>
