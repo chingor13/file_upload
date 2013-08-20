@@ -1,0 +1,12 @@
+<%= form_for(@user) do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <%= file_upload_field(:user, :avatar, nil, multiple: true) do %>
+    <%= link_to "Foo", "#", class: "add" %>
+  <% end %>
+
+  <%= form.submit %>
+<% end %>
+
+<%= javascript_include_tag "upload" %>

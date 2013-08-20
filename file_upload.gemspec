@@ -20,5 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.0.0"
   s.add_dependency "redis"
   s.add_dependency "uuid"
-  
+
+  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "jquery-rails"
 end
