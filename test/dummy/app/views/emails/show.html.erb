@@ -1,0 +1,12 @@
+<h1>Email</h1>
+
+<h2>Subject</h2>
+<p><%= @email.subject %></p>
+
+<h2>Message</h2>
+<p><%= @email.message %></p>
+
+<h2>Attachments (<%= @email.attachments.length %>)</h2>
+<ul>
+  <%= render @email.attachments %>
+</ul>
