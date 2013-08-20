@@ -15,16 +15,24 @@ $(function() {
   function setupFileField(inp) {
     var input = $(inp),
         form = input.parents("form"),
-        container = form.find(input.attr("data-container") || ".file"),
+        attributeName = input.attr("data-attr-name"),
+        modelName = input.attr("data-model-name"),
+        container = form.find("." + attributeName),
         list = container.find("ul"),
         multiple = input.attr("multiple"),
         preview = form.find(input.attr("data-preview") || ".preview"),
         add = form.find(".add"),
-        attrName = input.attr("data-attr-name"),
-        autosubmit = input.attr("data-autosubmit");
+        inputName = modelName + "[" + attributeName + "_attributes]",
+        autosubmit = input.attr("data-autosubmit"),
+        url = input.attr("data-file-upload");
 
+    if(multiple) {
+      inputName += "[REPLACE_ID][key]";
+    } else {
+      inputName += "[key]";
+    }
     input.fileupload({
-      url: input.attr('data-file-path'),
+      url: url,
       dataType: 'json',
       maxFileSize: 5000000,
       formData: function(form) { return []; },
@@ -48,7 +56,7 @@ $(function() {
           var item = data.files[i].item;
           item.find(".progress").replaceWith(
             $('<input type="checkbox" checked="checked"/>')
-              .attr('name', attrName.replace("REPLACE_ID", Math.floor(Math.random() * 1000000)))
+              .attr('name', inputName.replace("REPLACE_ID", Math.floor(Math.random() * 1000000)))
               .val(file.id)
           );
         });

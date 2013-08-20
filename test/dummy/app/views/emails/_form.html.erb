@@ -9,9 +9,11 @@
 
   <%= form.label :subject %>
   <%= form.text_field :subject %>
+  <br/>
 
   <%= form.label :message %>
-  <%= form.text_field :message %>
+  <%= form.text_area :message %>
+  <br/>
 
   <%= form.label :attachments %>
   <%= file_upload_field(:email, :attachments, email.attachments, multiple: true) do %>

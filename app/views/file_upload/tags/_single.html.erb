@@ -7,11 +7,11 @@
   hide_files = options.delete(:hide_files) || false
   attr_name = "#{model_name}[#{attribute_name}_attributes][key]"
   file_attrs = {
+    id: "#{model_name}_#{attribute_name}",
     data: {
-      :"attr-name" => attr_name,
-      container: ".#{attribute_name}",
-      :"file-upload" => true,
-      :"file-path" => file_upload.bulk_redis_files_path
+      :"model-name" => model_name,
+      :"attr-name" => attribute_name,
+      :"file-upload" => file_upload.bulk_redis_files_path
     }
   }.tap do |a|
     a[:"data-autosubmit"] = true if options.delete(:autosubmit)
