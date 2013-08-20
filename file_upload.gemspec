@@ -16,11 +16,9 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "aws-sdk"
   s.add_dependency "ruby-filemagic"
   s.add_dependency "rails", "~> 4.0.0"
   s.add_dependency "redis"
   s.add_dependency "uuid"
-
-  s.add_development_dependency "mysql"
+  
 end
