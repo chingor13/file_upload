@@ -23,12 +23,10 @@
     <% Array(value).each do |file| -%>
       <li><label>
         <% if file.persisted? %>
-          <%= hidden_field_tag("#{model_name}[existing_#{attribute_name}_attributes][#{s3_file.id}][_destroy]", 1) %>
-          <%= check_box_tag("#{model_name}[existing_#{attribute_name}_attributes][#{s3_file.id}][_destroy]", 0, checked: true) %>
+          <%= hidden_field_tag("#{model_name}[#{attribute_name}_attributes][#{file.id}][_destroy]", 1) %>
+          <%= check_box_tag("#{model_name}[#{attribute_name}_attributes][#{file.id}][_destroy]", 0, checked: true) %>
         <% elsif file.key %>
-          <% guid = UUID.generate %>
-          <%= hidden_field_tag("#{model_name}[#{attribute_name}_attributes][#{guid}][id]", "") %>
-          <%= check_box_tag("#{model_name}[#{attribute_name}_attributes][#{guid}][key]", file.key, checked: true) %>
+          <%= check_box_tag("#{model_name}[#{attribute_name}_attributes][#{SecureRandom.random_number(1000000000)}][key]", file.key, checked: true) %>
         <% end %>
         <%= file.name %> (<%= number_with_precision(file.size / 1024.0, precision: 2) %>)kB
       </label></li>

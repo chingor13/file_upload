@@ -58,7 +58,7 @@ module FileUpload
     end
 
     def id
-      @id ||= UUID.generate
+      @id ||= SecureRandom.random_number(1000000000)
     end
 
     def data_key
