@@ -15,7 +15,7 @@ class AddUsers < ActiveRecord::Migration
       t.string :name
       t.integer :size
       t.string :content_type
-      t.string :data, :binary, limit: 10.megabyte
+      t.binary :data, limit: 10.megabyte
     end
   end
 end

@@ -5,7 +5,9 @@ class DbFile < ActiveRecord::Base
   include FileUpload::RedisFileReadable
 
   def url
-    "SOMEURL"
+    return "/db_files/#{id}/#{name}" if id
+    return "/redis_files/#{key}/preview" if key
+    nil
   end
 
 end

@@ -10,5 +10,9 @@ module FileUpload::TagHelper
       options: options
     }, &block)
   end
+
+  def file_size(file)
+    number_with_precision(file.size / 1024.0, precision: 2)
+  end
   
 end

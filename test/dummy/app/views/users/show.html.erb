@@ -1,4 +1,8 @@
 <h1>User: <%= @user.name %></h1>
 
-<h2>Avatar</h2>
-<%= render @user.avatar %>
+<% if @user.avatar %>
+  <h2>Avatar</h2>
+  <%= render @user.avatar %>
+<% end %>
+
+<%= link_to "edit", edit_user_path(@user) %>

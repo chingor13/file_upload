@@ -39,6 +39,6 @@ class UsersController < ApplicationController
   protected
 
   def user_params
-    params.require(:user).permit(:name, avatar_attributes: [:key])
+    params.require(:user).permit(:name, avatar_attributes: [:key, :id, :_destroy])
   end
 end

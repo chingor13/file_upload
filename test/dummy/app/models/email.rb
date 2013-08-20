@@ -5,6 +5,6 @@ class Email < ActiveRecord::Base
   validates :subject, presence: true
   validates :message, presence: true
 
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 
 end

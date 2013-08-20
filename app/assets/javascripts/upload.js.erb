@@ -37,28 +37,31 @@ $(function() {
       maxFileSize: 5000000,
       formData: function(form) { return []; },
       type: 'POST',
+      // this is called after the files have been uploaded
       done: function(e, data) {
         // replace the input with a new one
         replaceInput(this);
 
+        if(preview.length > 0) {
+          window.loadImage(data.files[0], function(img) {
+            preview.html(img);
+          });
+        }
         // add field with file id
         $.each(data.result.files, function(i, file) {
-          if(!multiple) {
-            list.remove('li:not(:last)');
-          }
           // load preview
-          if(preview.length > 0) {
-            window.loadImage(data.files[0], function(img) {
-              preview.html(img);
-            });
+          if(multiple) {
+            // add checkbox field
+            var item = data.files[i].item;
+            item.find(".progress").replaceWith(
+              $('<input type="checkbox" checked="checked"/>')
+                .attr('name', inputName.replace("REPLACE_ID", Math.floor(Math.random() * 1000000)))
+                .val(file.id)
+            );
+          } else {
+            // add key hidden field
+            container.find(".inputs .progress").replaceWith($('<input type="checkbox" checked="checked"/>').attr('name', inputName).val(file.id));
           }
-
-          var item = data.files[i].item;
-          item.find(".progress").replaceWith(
-            $('<input type="checkbox" checked="checked"/>')
-              .attr('name', inputName.replace("REPLACE_ID", Math.floor(Math.random() * 1000000)))
-              .val(file.id)
-          );
         });
 
         if(autosubmit) {
@@ -81,16 +84,24 @@ $(function() {
           item.remove();
         });
       },
+      // this is called after selecting a file
       add: function(e, data) {
+        // clear errors
         container.find('.error').html('');
 
         $.each(data.files, function(i, file) {
-          file.item = $("<li/>").append('<label class="checkbox"></label>');
-          file.item.find('label').text(file.name + " (" + (Math.round(file.size/10.24)/100) + "kB)" )
-            .prepend($("<div class='progress'><div class='bar'></div></div>"));
-          file.item.appendTo(list);
+          if(multiple) {
+            file.item = $("<li/>").append('<label class="checkbox"></label>');
+            file.item.find('label').text(file.name + " (" + (Math.round(file.size/10.24)/100) + "kB)" )
+              .prepend($("<div class='progress'><div class='bar'></div></div>"));
+            file.item.appendTo(list);
+          } else {
+            var label = $("<label class='checkbox'></label").text(file.name + " (" + (Math.round(file.size/10.24)/100) + "kB)").prepend("<div class='progress'><div class='bar'></div></div>");
+            container.find(".inputs").html(label);
+          }
         });
 
+        // do the ajax file upload
         data.submit();
       }
     });
