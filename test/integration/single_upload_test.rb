@@ -113,6 +113,13 @@ class SingleUploadTest < CapybaraTest
     visit edit_user_path(user)
     assert has_selector?("h1", text: "Edit Bob")
     assert has_selector?(".edit_user .file .inputs input[type=checkbox]", count: 1)
+
+    uncheck "pic.jpg"
+    click_on "Update User"
+
+    assert has_selector?("h1", text: "User: Bob")
+    assert_equal(user_count, User.count)
+    assert_equal(file_count - 1, DbFile.count, "should have removed the file record")
   end
 
 end

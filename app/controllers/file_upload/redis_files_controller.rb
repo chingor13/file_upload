@@ -22,7 +22,7 @@ class FileUpload::RedisFilesController < ApplicationController
 
   def preview
     @redis_file = FileUpload::RedisFile.find(params[:id])
-    send_data @redis.data, type: @redis_file.content_type, disposition: "inline"
+    send_data @redis_file.data, type: @redis_file.type, disposition: "inline"
   end
 
   def destroy

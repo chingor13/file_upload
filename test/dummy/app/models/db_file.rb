@@ -6,7 +6,7 @@ class DbFile < ActiveRecord::Base
 
   def url
     return "/db_files/#{id}/#{name}" if id
-    return "/redis_files/#{key}/preview" if key
+    return "/file_upload/redis_files/#{key}/preview" if key
     nil
   end
 
