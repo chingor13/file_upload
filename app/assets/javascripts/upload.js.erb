@@ -22,14 +22,15 @@ $(function() {
         multiple = input.attr("multiple"),
         preview = form.find(input.attr("data-preview") || ".preview"),
         add = form.find(".add"),
-        inputName = modelName + "[" + attributeName + "_attributes]",
+        inputPrefix = modelName + "[" + attributeName + "_attributes]",
+        inputName,
         autosubmit = input.attr("data-autosubmit"),
         url = input.attr("data-file-upload");
 
     if(multiple) {
-      inputName += "[REPLACE_ID][key]";
+      inputName = inputPrefix + "[REPLACE_ID][key]";
     } else {
-      inputName += "[key]";
+      inputName = inputPrefix + "[key]";
     }
     input.fileupload({
       url: url,
@@ -60,7 +61,7 @@ $(function() {
             );
           } else {
             // add key hidden field
-            container.find(".inputs .progress").replaceWith($('<input type="checkbox" checked="checked"/>').attr('name', inputName).val(file.id));
+            container.find(".inputs .progress").replaceWith('<input type="hidden" name="' + inputName + '" value="' + file.id + '"/><input type="checkbox" checked="checked" name="' + inputPrefix + "[_destroy]" + '" value="0"/>');
           }
         });
 

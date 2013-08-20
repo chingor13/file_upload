@@ -122,4 +122,36 @@ class SingleUploadTest < CapybaraTest
     assert_equal(file_count - 1, DbFile.count, "should have removed the file record")
   end
 
+  test "can remove file on edit after changing" do
+    user = User.create({
+      name: "Bob",
+      avatar: DbFile.new({
+        name: "pic.jpg",
+        size: 112,
+        content_type: "image/jpeg",
+        data: "blah"
+      })
+    })
+    assert user.persisted?, "sanity check"
+
+    user_count = User.count
+    file_count = DbFile.count
+
+    visit edit_user_path(user)
+    assert has_selector?("h1", text: "Edit Bob")
+    assert has_selector?(".edit_user .file .inputs input[type=checkbox]", count: 1)
+
+    # choose a file
+    attach_file "user_avatar_file", File.expand_path("../../fixtures/avatar.jpeg", __FILE__)
+    assert has_selector?(".edit_user .file .inputs", text: "avatar.jpeg", count: 1)    
+
+    # now remove it
+    uncheck "avatar.jpeg"
+    click_on "Update User"
+
+    assert has_selector?("h1", text: "User: Bob")
+    assert_equal(user_count, User.count)
+    assert_equal(file_count - 1, DbFile.count, "should have removed the file record")
+  end
+
 end

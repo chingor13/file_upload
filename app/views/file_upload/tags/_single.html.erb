@@ -18,15 +18,18 @@
   end
 -%>
 <div class="file <%= attribute_name %>">
-  <%= hidden_field_tag("#{prefix}[id]", value.id) if value && value.persisted? %>
+  <% if value && value.persisted? %>
+    <%= hidden_field_tag("#{prefix}[id]", value.id) %>
+    <%= hidden_field_tag("#{prefix}[_destroy]", 1) %>
+  <% end %>
   <div class="inputs <%= 'hide' if hide_files %>">
     <% if value %>
       <label>
         <% if value.persisted? %>
-          <%= hidden_field_tag("#{prefix}[_destroy]", 1) %>
           <%= check_box_tag("#{prefix}[_destroy]", 0, checked: true) %>
         <% else %>
-          <%= check_box_tag("#{prefix}[key]", value.key, checked: true) %>
+          <%= hidden_field_tag("#{prefix}[key]", value.key) %>
+          <%= check_box_tag("#{prefix}[_destroy]", 0, checked: true) %>
         <% end %>
         <%= value.name %> (<%= file_size value %>)kB
     </label>
