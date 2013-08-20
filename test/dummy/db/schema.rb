@@ -13,6 +13,17 @@
 
 ActiveRecord::Schema.define(version: 20130820025256) do
 
+  create_table "db_files", force: true do |t|
+    t.string "owner_type"
+    t.string "owner_id"
+    t.string "key"
+  end
+
+  create_table "emails", force: true do |t|
+    t.string "subject"
+    t.string "message"
+  end
+
   create_table "users", force: true do |t|
     t.string "name"
   end

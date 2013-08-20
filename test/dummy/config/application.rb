@@ -2,7 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-Bundler.require(*Rails.groups)
+Bundler.require(:default, :development)
 require "file_upload"
 
 module Dummy

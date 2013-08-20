@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
 
-  # fake nested attributes
-  attr_accessor :avatar_attributes
+  has_one :avatar, class_name: DbFile, as: :owner
 
 end
