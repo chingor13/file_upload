@@ -49,6 +49,57 @@ in your form view:
 
 ## Configuration
 
+### Models
+
+`FileUpload` can handle both `has_one` and `has_many` associations.  We assume the parent model accepts nested attributes for the file model.
+
+#### has_one
+
+Let's say you want store a user's avatar image (has_one). Your model might look something like:
+
+```
+class User < ActiveRecord::Base
+  has_one :avatar
+  
+  accepts_nested_attributes_for :avatar
+end
+
+class Avatar < ActiveRecord::Base
+  belongs_to :user
+  
+  # should have accessors for data, name, content_type, and size
+end
+```
+
+#### has_many
+
+Let's say you want to store a bunch of attachments for an email (has_many). Your model might look something like:
+
+```
+class Email < ActiveRecord::Base
+  has_many :attachments
+	
+  accepts_nested_attributes_for :attachments
+end
+
+class Attachment < ActiveRecord::Base
+  belongs_to :email
+  
+  # should have accessors for data, name, content_type, and size
+end
+```
+
+#### Reading from the temp file
+
+`FileUpload` provides a nice mixin that makes it easy to load data from your tempfile.  Include `FileUpload::RedisFileReadable` into your file model and it will create an attribute writer `key=` that will load the temp file from redis into your file model.
+
+```
+class Avatar < ActiveRecord::Base
+  …
+  include FileUpload::RedisFileReadable
+end
+```
+
 ### Redis Connection
 
 in your application.rb (or environments/*.rb):
