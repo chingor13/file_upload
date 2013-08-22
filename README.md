@@ -8,6 +8,13 @@ File uploading is a common requirement for many applications. Why rewrite it fro
 
 Enter `FileUpload`, a mountable Rails engine that handles uploading files asynchronously to temporary shared file storage (redis). Redis allows us to temporarily cache this file and gives us shared storage - we don't need to set up NFS or configure server affininty in order to preserve access to our temporary file.
 
+## Assumptions
+
+* You want to asychronously upload files while the user completes a form
+* You want to keep track of your uploaded files in an ActiveModel-like storage engine
+* You are using rails
+* You are using jQuery (or can use it)
+
 ## Usage
 
 in your Gemfile:
@@ -28,16 +35,6 @@ in your application.js (ensure it is loaded after jQuery):
 //= require file_upload
 ```
 
-in an initializer:
-
-```
-FileUpload::Engine.config.redis = Redis.new({
-  host: "localhost",
-  port: 6379,
-  db: 7
-})
-```
-
 in your form view:
 
 ```
@@ -47,6 +44,28 @@ in your form view:
 ```
 
 ## Configuration
+
+### Redis Connection
+
+in your application.rb (or environments/*.rb):
+
+```
+# hash
+config.file_upload.redis = {
+  host: "redis1",
+  port: 6379,
+  db: 7
+}
+
+# connection
+config.file_upload.redis = Redis.new({
+  host: "redis1",
+  port: 6379,
+  db: 7
+})
+```
+
+### Views
 
 The `file_upload_field` helper method renders 2 possible templates: 
 
@@ -68,7 +87,6 @@ Please fork and send me a pull request.
 ## TODO
 
 * Rails generator for installing views
-* Allow you to configure the redis connection via environment config files
 * Optional file system temp storage
 
 ## License
