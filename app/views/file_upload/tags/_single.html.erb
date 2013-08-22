@@ -20,8 +20,8 @@
 <div class="file <%= attribute_name %>">
   <% if value && value.persisted? %>
     <%= hidden_field_tag("#{prefix}[id]", value.id) %>
-    <%= hidden_field_tag("#{prefix}[_destroy]", 1) %>
   <% end %>
+  <%= hidden_field_tag("#{prefix}[_destroy]", 1) %>
   <div class="inputs <%= 'hide' if hide_files %>">
     <% if value %>
       <label>
