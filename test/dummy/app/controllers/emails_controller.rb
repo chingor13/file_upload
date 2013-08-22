@@ -1,5 +1,4 @@
 class EmailsController < ApplicationController
-  helper FileUpload::TagHelper
 
   def index
     @emails = Email.all

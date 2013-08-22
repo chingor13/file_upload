@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
 
-  helper FileUpload::TagHelper
-
   def index
     @users = User.all
   end

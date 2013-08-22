@@ -30,5 +30,11 @@ module FileUpload
         end
     end
 
+    initializer "file_upload.helpers" do |app|
+      ActiveSupport.on_load :action_controller do
+        helper FileUpload::TagHelper
+      end
+    end
+
   end
 end
