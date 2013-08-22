@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     file_upload (0.0.1)
-      rails (~> 4.0.0)
+      rails (>= 3.2.0)
       redis
       ruby-filemagic
 
@@ -96,7 +96,7 @@ GEM
     thread_safe (0.1.2)
       atomic
     tilt (1.4.1)
-    treetop (1.4.14)
+    treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)

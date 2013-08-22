@@ -61,7 +61,7 @@ Let's say you want store a user's avatar image (has_one). Your model might look 
 class User < ActiveRecord::Base
   has_one :avatar
   
-  accepts_nested_attributes_for :avatar
+  accepts_nested_attributes_for :avatar, allow_destroy: true
 end
 
 class Avatar < ActiveRecord::Base
@@ -79,7 +79,7 @@ Let's say you want to store a bunch of attachments for an email (has_many). Your
 class Email < ActiveRecord::Base
   has_many :attachments
 	
-  accepts_nested_attributes_for :attachments
+  accepts_nested_attributes_for :attachments, allow_destroy: true
 end
 
 class Attachment < ActiveRecord::Base
