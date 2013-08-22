@@ -12,4 +12,4 @@
 //
 //= require_tree .
 //= require jquery_ujs
-//= require upload
+//= require file_upload

@@ -13,7 +13,7 @@ Enter `FileUpload`, a mountable Rails engine that handles uploading files asynch
 in your Gemfile:
 
 ```
-gem 'file_upload`
+gem 'file_upload'
 ```
 
 in your routes.rb:
@@ -25,7 +25,7 @@ mount FileUpload::Engine => "/file_upload"
 in your application.js (ensure it is loaded after jQuery):
 
 ```
-//= require upload
+//= require file_upload
 ```
 
 in an initializer:
