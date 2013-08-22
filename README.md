@@ -38,7 +38,11 @@ in your application.js (ensure it is loaded after jQuery):
 in your form view:
 
 ```
-<%= file_upload_field(:email, :attachments, email.attachments, multiple: true) do %>
+<%= multiple_file_upload_field(:email, :attachments, email.attachments) do %>
+  <%= link_to "add attachment", "#", class: "add" %>
+<% end %>
+
+<%= single_file_upload_field(:user, :avatar, user.avatar) do %>
   <%= link_to "add attachment", "#", class: "add" %>
 <% end %>
 ```

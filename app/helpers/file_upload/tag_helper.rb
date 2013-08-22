@@ -1,9 +1,16 @@
 module FileUpload::TagHelper
 
-  def file_upload_field(model_name, attribute_name, value, options = {}, &block)
-    layout = options.delete(:multiple) ? "multiple" : "single"
+  def multiple_file_upload_field(model_name, attribute_name, value, options = {}, &block)
+    render(layout: "file_upload/tags/multiple", locals: {
+      model_name: model_name,
+      attribute_name: attribute_name,
+      value: value,
+      options: options
+    }, &block)
+  end
 
-    render(layout: "file_upload/tags/#{layout}", locals: {
+  def single_file_upload_field(model_name, attribute_name, value, options = {}, &block)
+    render(layout: "file_upload/tags/single", locals: {
       model_name: model_name,
       attribute_name: attribute_name,
       value: value,

@@ -12,7 +12,7 @@
   <br/>
 
   <%= form.label :avatar %>
-  <%= file_upload_field(:user, :avatar, user.avatar, preview: true) do %>
+  <%= single_file_upload_field(:user, :avatar, user.avatar, preview: true) do %>
     <%= link_to "add avatar", "#", class: "add" %>
   <% end %>
 

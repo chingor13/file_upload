@@ -15,9 +15,9 @@ class MultipleUploadTest < CapybaraTest
     assert has_selector?("h1", text: "New Email")
 
     attach_file "email_attachments_file", File.expand_path("../../fixtures/avatar.jpeg", __FILE__)
-    assert has_selector?(".file ul li input[type=checkbox]", count: 1)
+    assert has_selector?(".file_upload ul li input[type=checkbox]", count: 1)
     attach_file "email_attachments_file", File.expand_path("../../fixtures/avatar.jpeg", __FILE__)
-    assert has_selector?(".file ul li input[type=checkbox]", count: 2)
+    assert has_selector?(".file_upload ul li input[type=checkbox]", count: 2)
 
     click_on "Create Email"
 
@@ -47,10 +47,10 @@ class MultipleUploadTest < CapybaraTest
     fill_in "Subject", with: "Hi there"
     fill_in "Message", with: "What are you up to?"
     attach_file "email_attachments_file", File.expand_path("../../fixtures/avatar.jpeg", __FILE__)
-    assert has_selector?(".file ul li input[type=checkbox]", count: 1)
+    assert has_selector?(".file_upload ul li input[type=checkbox]", count: 1)
 
     attach_file "email_attachments_file", File.expand_path("../../fixtures/test_upload.txt", __FILE__)
-    assert has_selector?(".file ul li input[type=checkbox]", count: 2)
+    assert has_selector?(".file_upload ul li input[type=checkbox]", count: 2)
     uncheck 'avatar.jpeg'
 
     click_on "Create Email"
@@ -117,7 +117,7 @@ class MultipleUploadTest < CapybaraTest
 
     uncheck "pic.jpg"
     attach_file "email_attachments_file", File.expand_path("../../fixtures/test_upload.txt", __FILE__)
-    assert has_selector?(".file ul li input[type=checkbox]", count: 2)
+    assert has_selector?(".file_upload ul li input[type=checkbox]", count: 2)
     click_on "Update Email"
 
     assert has_selector?("h2", text: "Attachments (1)")

@@ -12,17 +12,17 @@ class SingleUploadTest < CapybaraTest
     file_count = DbFile.count
 
     visit new_user_path
-    assert has_selector?(".file .inputs")
-    assert has_no_selector?(".file .inputs input[type=hidden]")
+    assert has_selector?(".file_upload .inputs")
+    assert has_no_selector?(".file_upload .inputs input[type=hidden]")
 
     attach_file "user_avatar_file", File.expand_path("../../fixtures/avatar.jpeg", __FILE__)
-    assert has_selector?(".file .inputs input[type=checkbox]")
+    assert has_selector?(".file_upload .inputs input[type=checkbox]")
 
     click_on "Create User"
 
     # should have validation error on name
     assert has_selector?(".error li")
-    assert has_selector?(".file .inputs input[type=checkbox]"), "upload file should still be present"
+    assert has_selector?(".file_upload .inputs input[type=checkbox]"), "upload file should still be present"
 
     fill_in "Name", with: "John Smith"
     click_on "Create User"
@@ -41,15 +41,15 @@ class SingleUploadTest < CapybaraTest
     file_count = DbFile.count
 
     visit new_user_path
-    assert has_selector?(".file .inputs")
-    assert has_no_selector?(".file .inputs input[type=hidden]")
+    assert has_selector?(".file_upload .inputs")
+    assert has_no_selector?(".file_upload .inputs input[type=hidden]")
 
     attach_file "user_avatar_file", File.expand_path("../../fixtures/avatar.jpeg", __FILE__)
-    assert has_selector?(".file .inputs input[type=checkbox]", count: 1)
+    assert has_selector?(".file_upload .inputs input[type=checkbox]", count: 1)
     fill_in "Name", with: "John Smith"
 
     attach_file "user_avatar_file", File.expand_path("../../fixtures/test_upload.txt", __FILE__)
-    assert has_selector?(".file .inputs input[type=checkbox]", count: 1)
+    assert has_selector?(".file_upload .inputs input[type=checkbox]", count: 1)
     click_on "Create User"
 
     assert has_selector?("h1", text: "User: John Smith")
@@ -78,10 +78,10 @@ class SingleUploadTest < CapybaraTest
 
     visit edit_user_path(user)
     assert has_selector?("h1", text: "Edit Bob")
-    assert has_selector?(".file .inputs input[type=checkbox]", count: 1)
+    assert has_selector?(".file_upload .inputs input[type=checkbox]", count: 1)
 
     attach_file "user_avatar_file", File.expand_path("../../fixtures/avatar.jpeg", __FILE__)
-    assert has_selector?(".file .inputs", text: "avatar.jpeg", count: 1)
+    assert has_selector?(".file_upload .inputs", text: "avatar.jpeg", count: 1)
     fill_in "Name", with: "Bob2"
 
     click_on "Update User"
@@ -112,7 +112,7 @@ class SingleUploadTest < CapybaraTest
 
     visit edit_user_path(user)
     assert has_selector?("h1", text: "Edit Bob")
-    assert has_selector?(".file .inputs input[type=checkbox]", count: 1)
+    assert has_selector?(".file_upload .inputs input[type=checkbox]", count: 1)
 
     uncheck "pic.jpg"
     click_on "Update User"
@@ -139,11 +139,11 @@ class SingleUploadTest < CapybaraTest
 
     visit edit_user_path(user)
     assert has_selector?("h1", text: "Edit Bob")
-    assert has_selector?(".file .inputs input[type=checkbox]", count: 1)
+    assert has_selector?(".file_upload .inputs input[type=checkbox]", count: 1)
 
     # choose a file
     attach_file "user_avatar_file", File.expand_path("../../fixtures/avatar.jpeg", __FILE__)
-    assert has_selector?(".file .inputs", text: "avatar.jpeg", count: 1)    
+    assert has_selector?(".file_upload .inputs", text: "avatar.jpeg", count: 1)    
 
     # now remove it
     uncheck "avatar.jpeg"

@@ -17,7 +17,7 @@
     a[:"data-autosubmit"] = true if options.delete(:autosubmit)
   end
 -%>
-<div class="file <%= attribute_name %>">
+<div class="file_upload <%= attribute_name %>">
   <% if value && value.persisted? %>
     <%= hidden_field_tag("#{prefix}[id]", value.id) %>
   <% end %>

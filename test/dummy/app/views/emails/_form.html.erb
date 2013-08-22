@@ -16,7 +16,7 @@
   <br/>
 
   <%= form.label :attachments %>
-  <%= file_upload_field(:email, :attachments, email.attachments, multiple: true) do %>
+  <%= multiple_file_upload_field(:email, :attachments, email.attachments) do %>
     <%= link_to "add attachment", "#", class: "add" %>
   <% end %>
 

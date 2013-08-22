@@ -18,7 +18,7 @@
     a[:"data-autosubmit"] = true if options.delete(:autosubmit)
   end
 -%>
-<div class="file <%= attribute_name %>">
+<div class="file_upload <%= attribute_name %>">
   <ul class="unstyled<%= ' hide' if hide_files %>">
     <% Array(value).each do |file| -%>
       <li><label>
@@ -29,7 +29,7 @@
         <% elsif file.key %>
           <%= check_box_tag("#{model_name}[#{attribute_name}_attributes][#{SecureRandom.random_number(1000000000)}][key]", file.key, checked: true) %>
         <% end %>
-        <%= file.name %> (<%= number_with_precision(file.size / 1024.0, precision: 2) %>)kB
+        <%= file.name %> (<%= file_size file %>)kB
       </label></li>
     <% end -%>
   </ul>
