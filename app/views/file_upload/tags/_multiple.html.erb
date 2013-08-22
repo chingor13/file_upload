@@ -23,6 +23,7 @@
     <% Array(value).each do |file| -%>
       <li><label>
         <% if file.persisted? %>
+          <%= hidden_field_tag("#{model_name}[#{attribute_name}_attributes][#{file.id}][id]", file.id) %>
           <%= hidden_field_tag("#{model_name}[#{attribute_name}_attributes][#{file.id}][_destroy]", 1) %>
           <%= check_box_tag("#{model_name}[#{attribute_name}_attributes][#{file.id}][_destroy]", 0, checked: true) %>
         <% elsif file.key %>

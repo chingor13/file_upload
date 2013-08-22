@@ -24,7 +24,7 @@ class EmailsController < ApplicationController
 
   def update
     @email = Email.find(params[:id])
-    if @user.update_attributes(email_params)
+    if @email.update_attributes(email_params)
       redirect_to @email
     else
       render :edit
@@ -38,7 +38,7 @@ class EmailsController < ApplicationController
   protected
 
   def email_params
-    params.require(:email).permit(:subject, :message, attachments_attributes: [:key])
+    params.require(:email).permit(:subject, :message, attachments_attributes: [:key, :id, :_destroy])
   end
 
 end

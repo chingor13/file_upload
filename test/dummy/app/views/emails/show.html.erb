@@ -8,5 +8,7 @@
 
 <h2>Attachments (<%= @email.attachments.length %>)</h2>
 <ul>
-  <%= render @email.attachments %>
+  <%= render @email.attachments if @email.attachments %>
 </ul>
+
+<%= link_to "edit", edit_email_path(@email) %>
