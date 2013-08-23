@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://chingr.com"
   s.summary     = "Handles uploading files and saving to S3"
   s.description = "Handles uploading files and saving to S3"
+  s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
