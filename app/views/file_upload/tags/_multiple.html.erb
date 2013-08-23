@@ -5,7 +5,7 @@
   # options
   preview = options.delete(:preview) || false
   hide_files = options.delete(:hide_files) || false
-
+  prefix = "#{model_name}[#{attribute_name}_attributes]"
   file_attrs = {
     id: "#{model_name}_#{attribute_name}_file",
     data: {
@@ -23,13 +23,13 @@
     <% Array(value).each do |file| -%>
       <li><label>
         <% if file.persisted? %>
-          <%= hidden_field_tag("#{model_name}[#{attribute_name}_attributes][#{file.id}][id]", file.id) %>
-          <%= hidden_field_tag("#{model_name}[#{attribute_name}_attributes][#{file.id}][_destroy]", 1) %>
-          <%= check_box_tag("#{model_name}[#{attribute_name}_attributes][#{file.id}][_destroy]", 0, checked: true) %>
+          <%= hidden_field_tag("#{prefix}[#{file.id}][id]", file.id) %>
+          <%= hidden_field_tag("#{prefix}[#{file.id}][_destroy]", 1) %>
+          <%= check_box_tag("#{prefix}[#{file.id}][_destroy]", 0, checked: true) %>
         <% elsif file.key %>
-          <%= check_box_tag("#{model_name}[#{attribute_name}_attributes][#{SecureRandom.random_number(1000000000)}][key]", file.key, checked: true) %>
+          <%= check_box_tag("#{prefix}[#{SecureRandom.random_number(1000000000)}][key]", file.key, checked: true) %>
         <% elsif file.copy_from %>
-          <%= check_box_tag("#{model_name}[#{attribute_name}_attributes][#{SecureRandom.random_number(1000000000)}][copy_from]", file.copy_from, checked: true) %>
+          <%= check_box_tag("#{prefix}[#{SecureRandom.random_number(1000000000)}][copy_from]", file.copy_from, checked: true) %>
         <% end %>
         <%= file.name %> (<%= file_size file %>)kB
       </label></li>

@@ -27,9 +27,11 @@
       <label>
         <% if value.persisted? %>
           <%= check_box_tag("#{prefix}[_destroy]", 0, checked: true) %>
-        <% else %>
+        <% elsif value.key %>
           <%= hidden_field_tag("#{prefix}[key]", value.key) %>
           <%= check_box_tag("#{prefix}[_destroy]", 0, checked: true) %>
+        <% elsif value.copy_from %>
+          <%= check_box_tag("#{prefix}][copy_from]", file.copy_from, checked: true)
         <% end %>
         <%= value.name %> (<%= file_size value %>)kB
     </label>
