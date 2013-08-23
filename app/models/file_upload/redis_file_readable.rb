@@ -4,6 +4,7 @@ module FileUpload
 
     included do
       attr_reader :key
+      attr_accessor :copy_from
     end
 
     def key=(key)

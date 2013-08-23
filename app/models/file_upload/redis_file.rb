@@ -16,7 +16,7 @@ module FileUpload
 
     class << self
 
-      def find(uuid)
+      def find_by_id(uuid)
         key = base_key(uuid)
         name, type, size = redis.mget(name_key(key), type_key(key), size_key(key))
         if name && type && size
@@ -28,8 +28,12 @@ module FileUpload
             size: size
           })
         else
-          raise(ActiveRecord::RecordNotFound)
+          nil
         end
+      end
+
+      def find(uuid)
+        find_by_id(uuid) || raise(ActiveRecord::RecordNotFound)
       end
 
       def name_key(base_key)
