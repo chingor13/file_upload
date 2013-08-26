@@ -51,7 +51,6 @@ $(function() {
         }
         // add field with file id
         $.each(data.result.files, function(i, file) {
-          console.log(file);
           // load preview
           if(multiple) {
             // add checkbox field
