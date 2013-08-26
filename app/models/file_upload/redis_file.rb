@@ -124,7 +124,7 @@ module FileUpload
       redis.del(data_key, name_key, type_key, size_key)
     end
 
-    def to_json
+    def to_json(options = {})
       {
         size: size,
         name: name,

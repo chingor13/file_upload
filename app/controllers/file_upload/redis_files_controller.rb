@@ -18,6 +18,12 @@ class FileUpload::RedisFilesController < ApplicationController
 
   def show
     @redis_file = FileUpload::RedisFile.find(params[:id])
+    respond_to do |format|
+      format.json {
+        render json: @redis_file.to_json
+      }
+      format.html
+    end
   end
 
   def preview
@@ -28,6 +34,14 @@ class FileUpload::RedisFilesController < ApplicationController
   def destroy
     @redis_file = FileUpload::RedisFile.find(params[:id])
     @redis_file.destroy
+    respond_to do |format|
+      format.json {
+        render json: {
+          status: "OK"
+        }
+      }
+      format.html
+    end
   end
 
   def bulk
@@ -46,7 +60,7 @@ class FileUpload::RedisFilesController < ApplicationController
     respond_to do |format|
       format.js {
         render json: {
-          files: files.map{|file| file.to_json}
+          files: files.map(&:to_json)
         }
       }
     end

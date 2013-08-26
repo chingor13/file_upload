@@ -51,6 +51,7 @@ $(function() {
         }
         // add field with file id
         $.each(data.result.files, function(i, file) {
+          console.log(file);
           // load preview
           if(multiple) {
             // add checkbox field
@@ -58,11 +59,11 @@ $(function() {
             item.find(".progress").replaceWith(
               $('<input type="checkbox" checked="checked"/>')
                 .attr('name', inputName.replace("REPLACE_ID", Math.floor(Math.random() * 1000000)))
-                .val(file.id)
+                .val(file['id'])
             );
           } else {
             // add key hidden field
-            container.find(".inputs .progress").replaceWith('<input type="hidden" name="' + inputName + '" value="' + file.id + '"/><input type="checkbox" checked="checked" name="' + inputPrefix + "[_destroy]" + '" value="0"/>');
+            container.find(".inputs .progress").replaceWith('<input type="hidden" name="' + inputName + '" value="' + file['id'] + '"/><input type="checkbox" checked="checked" name="' + inputPrefix + "[_destroy]" + '" value="0"/>');
           }
         });
 
