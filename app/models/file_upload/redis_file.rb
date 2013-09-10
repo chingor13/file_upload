@@ -6,7 +6,7 @@ module FileUpload
     FILE_EXPIRY = 60 * 60
 
     attr_accessor :file_io
-    attr_writer :key, :name, :id
+    attr_writer :key, :name, :id, :type
 
     def initialize(attrs = {})
       attrs.each do |k, v|
